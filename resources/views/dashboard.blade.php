@@ -4,11 +4,11 @@
 
 
 @section('title')
-HALO
+Apotek Milan
 @endsection
 
 @section('content')
-KONTEN nIH
+Apotek Milan
 @endsection
 
 @section('script')
