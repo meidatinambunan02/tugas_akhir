@@ -11,9 +11,9 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+    <!-- Nav Item - Dashboard tempat routing kalau dashboard dipencet balikkesini-->
+    <li class="nav-item {{ Route::is('dashboard') ? 'active' : '' }}">
+        <a class="nav-link" href="{{route('dashboard')}}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
@@ -27,7 +27,7 @@
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
+    <li class="nav-item {{ Route::is('coa.index') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
             <i class="fa-solid fa-tablets"></i>
@@ -36,7 +36,7 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Daftar : </h6>
-                <a class="collapse-item" href="buttons.html">COA</a>
+                <a class="collapse-item" href="{{route('coa.index')}}">COA</a>
                 <a class="collapse-item" href="cards.html">Obat</a>
             </div>
         </div>
