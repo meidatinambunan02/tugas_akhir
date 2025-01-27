@@ -37,14 +37,16 @@
                                     <td>{{ $coa->header_akun }}</td>
                                     <td>
                                         <!-- Add action buttons here (e.g., Edit, Delete) -->
-                                        <a href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal{{ $coa->id }}">Edit</a>
-                                        
-                                        <form action="" method="POST" style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                        </form>
-                                        
+                                        <a href="#" class="btn btn-warning btn-sm" data-toggle="modal"
+                                            data-target="#editModal{{ $coa->id }}">Edit</a>
+                                            <form action="{{ route('coa.destroy', $coa->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <!-- Tombol untuk memunculkan modal konfirmasi -->
+                                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $coa->id }}">Delete</button>
+                                            </form>
+                                            
+
                                     </td>
                                 </tr>
                             @endforeach
@@ -94,6 +96,101 @@
             </div>
         </div>
     </div>
+
+    @foreach ($datacoa as $coa)
+        <!-- Modal Edit -->
+        <div class="modal fade" id="editModal{{ $coa->id }}" tabindex="-1" role="dialog"
+            aria-labelledby="editModalLabel{{ $coa->id }}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel{{ $coa->id }}">Edit Data COA</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="{{ route('coa.update', $coa->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="kode_coa">Kode COA</label>
+                                <input type="text" class="form-control" id="kode_coa" name="kode_coa"
+                                    value="{{ $coa->kode_coa }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="nama_akun">Nama Akun</label>
+                                <input type="text" class="form-control" id="nama_akun" name="nama_akun"
+                                    value="{{ $coa->nama_akun }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="header_akun">Header Akun</label>
+                                <input type="text" class="form-control" id="header_akun" name="header_akun"
+                                    value="{{ $coa->header_akun }}" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endforeach
+
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+
+    @foreach ($datacoa as $coa)
+        <!-- Modal Konfirmasi Hapus -->
+        <div class="modal fade" id="deleteModal{{ $coa->id }}" tabindex="-1" role="dialog"
+            aria-labelledby="deleteModalLabel{{ $coa->id }}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel{{ $coa->id }}">Konfirmasi Hapus</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Apakah Anda yakin ingin menghapus data <strong>{{ $coa->nama_akun }}</strong>?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <form action="{{ route('coa.destroy', $coa->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Hapus</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+
 @endsection
 
 @section('script')
@@ -105,57 +202,3 @@
         });
     </script>
 @endsection
-
-@foreach ($datacoa as $coa)
-    <!-- Modal Edit -->
-    <div class="modal fade" id="editModal{{ $coa->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel{{ $coa->id }}" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel{{ $coa->id }}">Edit Data COA</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="{{ route('coa.update', $coa->id) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="kode_coa">Kode COA</label>
-                            <input type="text" class="form-control" id="kode_coa" name="kode_coa" value="{{ $coa->kode_coa }}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="nama_akun">Nama Akun</label>
-                            <input type="text" class="form-control" id="nama_akun" name="nama_akun" value="{{ $coa->nama_akun }}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="header_akun">Header Akun</label>
-                            <input type="text" class="form-control" id="header_akun" name="header_akun" value="{{ $coa->header_akun }}" required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-@endforeach
-
-@if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
-
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif

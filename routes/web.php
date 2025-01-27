@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CoaController;
+use App\Http\Controllers\ObatController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +23,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/coa/create', [CoaController::class, 'create'])->name('coa.create');
     Route::post('/coa', [CoaController::class, 'store'])->name('coa.store');
     Route::get('/coa/{id}/edit', [CoaController::class, 'edit'])->name('coa.edit');
-Route::put('/coa/{id}', [CoaController::class, 'update'])->name('coa.update');
+    Route::put('/coa/{id}', [CoaController::class, 'update'])->name('coa.update');
+    Route::delete('/coa/{id}', [CoaController::class, 'destroy'])->name('coa.destroy');
+    Route::get('/obat', [ObatController::class, 'index'])->name('obat.index');
 
 });
 

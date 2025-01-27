@@ -15,7 +15,7 @@ class CoaController extends Controller
     public function index()
     {
         //
-        $datacoa= coa::all();
+        $datacoa = coa::all();
         return view('coa.index', compact('datacoa'));
     }
 
@@ -56,7 +56,7 @@ class CoaController extends Controller
      */
     public function edit($id)
     {
-        $coa=Coa::findOrFail($id);
+        $coa = Coa::findOrFail($id);
         return view('coa.edit', compact('coa'));
     }
 
@@ -66,28 +66,33 @@ class CoaController extends Controller
     public function update(UpdatecoaRequest $request, $id)
     {
         $request->validate([
-            'kode_coa'=>'required|string|max:255|unique:coa,kode_coa'.$id,
-            'nama_akun'=>'required|string|max:255',
-            'header_akun'=>'required|string|max:255',
+            'kode_coa' => 'required|integer|max:255' . $id,
+            'nama_akun' => 'required|string|max:255',
+            'header_akun' => 'required|string|max:255',
         ]);
 
-        $coa=Coa::findOrFail($id);
+        $coa = Coa::findOrFail($id);
         $coa->update([
-            'kode_coa'=> $request->kode_coa,
-            'nama_akun'=>$request->nama_akun,
-            'header_akun'=>$request->header_akun,
+            'kode_coa' => $request->kode_coa,
+            'nama_akun' => $request->nama_akun,
+            'header_akun' => $request->header_akun,
         ]);
 
         return redirect()->route('coa.index')->with('success', 'Data COA berhasil diperbaharui');
-    
-       
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(coa $coa)
+    public function destroy($id)
     {
-        //
+        //cari data berdasarkan id
+        $coa = Coa::findOrFail($id);
+
+        //hapus data
+        $coa->delete();
+
+        //redirect kembali ke halaman list dengan pesan sukses
+        return redirect()->route('coa.index')->with('success', 'Data COA berhasil dihapus!');
     }
 }
