@@ -37,7 +37,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Daftar : </h6>
                 <a class="collapse-item" href="{{route('coa.index')}}">COA</a>
-                <a class="collapse-item" href="cards.html">Obat</a>
+                <a class="collapse-item" href="{{route('obat.index')}}">Obat</a>
             </div>
         </div>
     </li>
@@ -53,7 +53,7 @@
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Daftar Transaksi :</h6>
-                <a class="collapse-item" href="utilities-color.html">Penjualan</a>
+                <a class="collapse-item" href="{{route('penjualan.index')}}">Penjualan</a>
                 <a class="collapse-item" href="utilities-border.html">Lainnya</a>
                 
             </div>
