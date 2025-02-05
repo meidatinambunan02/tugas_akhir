@@ -78,7 +78,7 @@ class CoaController extends Controller
             'header_akun' => $request->header_akun,
         ]);
 
-        return redirect()->route('coa.index')->with('success', 'Data COA berhasil diperbaharui');
+        return redirect()->route('coa.index')->with('success');
     }
 
     /**
