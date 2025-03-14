@@ -58,8 +58,6 @@
         <!-- End Tabel COA -->
     </div>
 
-    <!-- Tombol Tambah Data -->
-
 
     <!-- Modal Tambah Data -->
     <div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="tambahModalLabel"
@@ -139,22 +137,6 @@
         </div>
     @endforeach
 
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
 
     @foreach ($datacoa as $coa)
         <!-- Modal Konfirmasi Hapus -->
@@ -191,14 +173,4 @@
     @endif
 
 
-@endsection
-
-@section('script')
-    <!-- Kamu bisa menambahkan script tambahan di sini jika diperlukan -->
-    <script src="https://cdn.jsdelivr.net/npm/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable();
-        });
-    </script>
 @endsection

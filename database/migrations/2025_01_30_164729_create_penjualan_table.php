@@ -12,15 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('penjualan', function (Blueprint $table) {
-            $table->id();
-            $table->integer('id_jual');
-            $table->integer('no_trans');
-            $table->date('tgl_jual');
-            $table->string('nama_obat');
-            $table->integer('jmlh_jual');
-            $table->integer('harga_satuan');
-            $table->integer('total_jual');
+            $table->id(); // Primary key otomatis
+            $table->string('no_trans')->unique(); // No transaksi sebagai string
+            $table->date('tgl_jual'); // Tanggal jual
+            $table->unsignedBigInteger('pelanggan_id'); // Foreign key ke pelanggan
             $table->timestamps();
+
+            // Foreign key constraint
+            $table->foreign('pelanggan_id')->references('id')->on('pelanggan')->onDelete('cascade');
         });
     }
 

@@ -1,127 +1,212 @@
 @extends('sbadmin2.sbadmin')
 
 @section('title')
-    Daftar Transaksi Penjualan Apotek Milan
+Daftar Transaksi Penjualan Apotek Milan
 @endsection
 
 @section('content')
-    <div class="container-fluid">
-        <h1 class="h3 mb-4 text-gray-800">Transaksi Penjualan Apotek Milan</h1>
-
-        <!-- Tabel Penjualan -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Penjualan</h6>
-                </br>
-
-                <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#tambahModal">Tambah Data</a>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>ID Jual</th>
-                                <th>Nomor Transaksi</th>
-                                <th>Tanggal Jual</th>
-                                <th>Nama Obat</th>
-                                <th>Jumlah Obat</th>
-                                <th>Harga Satuan</th>
-                                <th>Total Jual</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <!-- Data Baris 1 -->
-                            @foreach ($datapenjualan as $penjualan)
-                                <tr>
-                                    <td>{{ $penjualan->id_jual }}</td>
-                                    <td>{{ $penjualan->no_trans }}</td>
-                                    <td>{{ $penjualan->tgl_jual }}</td>
-                                    <td>{{ $penjualan->nama_obat }}</td>
-                                    <td>{{ $penjualan->jmlh_jual }}</td>
-                                    <td>{{ $penjualan->harga_satuan }}</td>
-                                    <td>{{ $penjualan->total_jual }}</td>
-                                    <td>
-                                        <!-- Add action buttons here (e.g., Edit, Delete) -->
-                                        <a href="#" class="btn btn-warning btn-sm" data-toggle="modal"
-                                            data-target="#editModal{{ $penjualan->id }}">Edit</a>
-                                        <form action="{{ route('penjualan.destroy', $penjualan->id) }}" method="POST"
-                                            style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <!-- Tombol untuk memunculkan modal konfirmasi -->
-                                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                                data-target="#deleteModal{{ $penjualan->id }}">Delete</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <!-- End Tabel Penjualan -->
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Transaksi Penjualan Apotek Milan</h1>
+    @if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
-     <!-- Modal Tambah Penjualan -->
-     <div class="modal fade" id="tambahModal" tabindex="-1" aria-labelledby="tambahModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="tambahModalLabel">Tambah Transaksi Penjualan</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('penjualan.store') }}" method="POST">
-                        @csrf
-                        <div class="form-group">
-                            <label for="id_jual">ID Jual</label>
-                            <input type="number" class="form-control" id="id_jual" name="id_jual" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="no_trans">Nomor Transaksi</label>
-                            <input type="number" class="form-control" id="no_trans" name="no_trans" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="tgl_jual">Tanggal Jual</label>
-                            <input type="date" class="form-control" id="tgl_jual" name="tgl_jual" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="nama_obat">Nama Obat</label>
-                            <input type="text" class="form-control" id="nama_obat" name="nama_obat" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="jmlh_jual">Jumlah Obat</label>
-                            <input type="number" class="form-control" id="jmlh_jual" name="jmlh_jual" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="harga_satuan">Harga Satuan</label>
-                            <input type="number" class="form-control" id="harga_satuan" name="harga_satuan" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="total_jual">Total Jual</label>
-                            <input type="number" class="form-control" id="total_jual" name="total_jual" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
     @endif
 
-    @endsection
-   
+    @if(session('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ session('error') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
 
+    <!-- Tabel Katalog Obat -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Katalog Obat</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Kode Obat</th>
+                            <th>Nama Obat</th>
+                            <th>Harga Satuan</th>
+                            <th>Stok</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($obat as $item)
+                        <tr>
+                            <td>{{ $item->kode_obat }}</td>
+                            <td>{{ $item->nama_obat }}</td>
+                            <td>{{ number_format($item->harga, 0, ',', '.') }}</td>
+                            <td>{{ $item->jmlh_stok }}</td>
+                            <td>
+                                <button class="btn btn-success btn-sm" onclick="addToCart({{ $item->id }}, '{{ $item->nama_obat }}', {{ $item->harga }})">
+                                    Tambah ke Keranjang
+                                </button>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- End Tabel Katalog Obat -->
+
+    <!-- Keranjang Belanja -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Keranjang Belanja</h6>
+        </div>
+        <div class="card-body">
+            <form action="{{ route('penjualan.store') }}" method="POST">
+                @csrf
+                <table class="table table-bordered" id="cartTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nama Obat</th>
+                            <th>Harga Satuan</th>
+                            <th>Jumlah</th>
+                            <th>Total</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cartBody">
+                        <!-- Data keranjang ditampilkan di sini -->
+                    </tbody>
+                </table>
+                <div class="form-group">
+                    <label for="tgl_jual">Tanggal Jual</label>
+                    <input type="date" class="form-control" name="tgl_jual" required>
+                </div>
+                <div class="form-group">
+                    <label for="pelanggan_id">Pilih Pelanggan</label>
+                    <select class="form-control" name="pelanggan_id" required>
+                        <option value="">Pilih Pelanggan</option>
+                        @foreach ($pelanggan as $pel)
+                        <option value="{{ $pel->id }}">{{ $pel->nama_pelanggan }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <input type="hidden" name="cart_data" id="cartData">
+                <button type="submit" class="btn btn-primary">Checkout</button>
+            </form>
+        </div>
+    </div>
+    <!-- End Keranjang Belanja -->
+
+    <!-- Riwayat Transaksi -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Riwayat Transaksi</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="riwayatTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>No Transaksi</th>
+                            <th>Tanggal Jual</th>
+                            <th>Pelanggan</th>
+                            <th>Obat</th>
+                            <th>Jumlah</th>
+                            <th>Harga Satuan</th>
+                            <th>Total Harga</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($riwayat as $transaksi)
+                        @foreach ($transaksi->detailPenjualan as $key => $detail)
+                        <tr>
+                            @if ($key === 0)
+                            <td rowspan="{{ $transaksi->detailPenjualan->count() }}">{{ $transaksi->no_trans }}</td>
+                            <td rowspan="{{ $transaksi->detailPenjualan->count() }}">{{ $transaksi->tgl_jual }}</td>
+                            <td rowspan="{{ $transaksi->detailPenjualan->count() }}">
+                                {{ optional($transaksi->pelanggan)->nama_pelanggan ?? '-' }}
+                            </td>
+                            @endif
+                            <td>{{ optional($detail->obat)->nama_obat ?? '-' }}</td>
+                            <td>{{ $detail->jmlh_jual }}</td>
+                            <td>{{ number_format($detail->harga_satuan, 0, ',', '.') }}</td>
+                            <td>{{ number_format($detail->total_jual, 0, ',', '.') }}</td>
+                        </tr>
+                        @endforeach
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- End Riwayat Transaksi -->
+
+
+</div>
+
+<!-- JavaScript untuk Keranjang -->
+<script>
+    let cart = [];
+
+    function addToCart(id, nama, harga) {
+        let existingItem = cart.find(item => item.id === id);
+        if (existingItem) {
+            existingItem.jumlah++;
+            existingItem.total = existingItem.jumlah * existingItem.harga;
+        } else {
+            cart.push({
+                id: id
+                , nama: nama
+                , harga: harga
+                , jumlah: 1
+                , total: harga
+            });
+        }
+        updateCart();
+    }
+
+    function removeFromCart(index) {
+        cart.splice(index, 1);
+        updateCart();
+    }
+
+    function updateCart() {
+        let cartBody = document.getElementById('cartBody');
+        cartBody.innerHTML = '';
+        cart.forEach((item, index) => {
+            cartBody.innerHTML += `
+                <tr>
+                    <td>${item.nama}</td>
+                    <td>${item.harga.toLocaleString('id-ID')}</td>
+                    <td>
+                        <input type="number" value="${item.jumlah}" min="1" class="form-control" 
+                            onchange="updateQuantity(${index}, this.value)">
+                    </td>
+                    <td>${item.total.toLocaleString('id-ID')}</td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="removeFromCart(${index})">Hapus</button>
+                    </td>
+                </tr>
+            `;
+        });
+
+        // Simpan data ke input hidden untuk dikirim ke backend
+        document.getElementById('cartData').value = JSON.stringify(cart);
+    }
+
+    function updateQuantity(index, jumlah) {
+        cart[index].jumlah = parseInt(jumlah);
+        cart[index].total = cart[index].jumlah * cart[index].harga;
+        updateCart();
+    }
+
+</script>
+@endsection

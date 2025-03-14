@@ -28,8 +28,7 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item {{ Route::is('coa.index') ? 'active' : '' }}">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-            aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fa-solid fa-tablets"></i>
             <span>Master Data</span>
         </a>
@@ -38,24 +37,23 @@
                 <h6 class="collapse-header">Daftar : </h6>
                 <a class="collapse-item" href="{{route('coa.index')}}">COA</a>
                 <a class="collapse-item" href="{{route('obat.index')}}">Obat</a>
+                <a class="collapse-item" href="{{route('pelanggan.index')}}">Pelanggan</a>
             </div>
         </div>
     </li>
 
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-            aria-expanded="true" aria-controls="collapseUtilities">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fa-solid fa-file-invoice-dollar"></i>
             <span>Transaksi</span>
         </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-            data-parent="#accordionSidebar">
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Daftar Transaksi :</h6>
                 <a class="collapse-item" href="{{route('penjualan.index')}}">Penjualan</a>
                 <a class="collapse-item" href="utilities-border.html">Lainnya</a>
-                
+
             </div>
         </div>
     </li>
@@ -70,23 +68,22 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-            aria-expanded="true" aria-controls="collapsePages">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
             <i class="fa-solid fa-book"></i>
             <span>Laporan</span>
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Jenis Laporan</h6>
-                <a class="collapse-item" href="login.html">Laporan Penjualan</a>
+                <a class="collapse-item" href="{{ route('laporan.penjualan') }}">Laporan Penjualan</a>
                 <a class="collapse-item" href="register.html">Laporan Laba Rugi</a>
-               
+
                 <!-- <div class="collapse-divider"></div>
                 <h6 class="collapse-header">Other Pages:</h6>
                 <a class="collapse-item" href="404.html">404 Page</a>
                 <a class="collapse-item" href="blank.html">Blank Page</a>
             </div> -->
-        </div>
+            </div>
     </li>
 
     <!-- Nav Item - Charts 

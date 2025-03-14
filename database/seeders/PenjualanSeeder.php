@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Penjualan;
 use Illuminate\Database\Seeder;
 
 class PenjualanSeeder extends Seeder
@@ -12,6 +12,10 @@ class PenjualanSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Penjualan::create([
+            'pelanggan_id' => 1,
+            'tgl_jual' => now(), // Ganti 'tanggal' menjadi 'tgl_jual'
+            'no_trans' => 'TRX-001'
+        ]);
     }
 }

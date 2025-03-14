@@ -7,13 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class obat extends Model
 {
-     /** @use HasFactory<\Database\Factories\obatFactory> */
-     use HasFactory;
+    /** @use HasFactory<\Database\Factories\obatFactory> */
+    use HasFactory;
 
-     protected $table = 'obat';
- 
-     protected $fillable = [
-         'kode_obat', 'nama_obat', 'jmlh_stok', 'harga', 'tgl_beli'
-     ];
-     
+    protected $table = 'obat';
+
+
+    protected $fillable = ['kode_obat', 'nama_obat', 'harga', 'jmlh_stok'];
+
+    public function penjualan()
+    {
+        return $this->hasMany(Penjualan::class, 'id_obat');
+    }
+
+    public function penjualanDetail()
+    {
+        return $this->hasMany(PenjualanDetail::class);
+    }
 }
