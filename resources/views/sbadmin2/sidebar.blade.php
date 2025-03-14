@@ -76,7 +76,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Jenis Laporan</h6>
                 <a class="collapse-item" href="{{ route('laporan.penjualan') }}">Laporan Penjualan</a>
-                <a class="collapse-item" href="register.html">Laporan Laba Rugi</a>
+                <a class="collapse-item" href="{{ route('laporan.laba-rugi') }}">Laporan Laba Rugi</a>
 
                 <!-- <div class="collapse-divider"></div>
                 <h6 class="collapse-header">Other Pages:</h6>

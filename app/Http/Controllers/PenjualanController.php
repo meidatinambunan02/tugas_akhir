@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\coa;
+use App\Models\Jurnal;
 use App\Models\Penjualan;
 use App\Models\PenjualanDetail;
 use App\Models\Obat;
@@ -39,28 +41,26 @@ class PenjualanController extends Controller
             return redirect()->route('penjualan.index')->with('error', 'Keranjang tidak boleh kosong');
         }
 
-        DB::beginTransaction(); // Start transaction
+        DB::beginTransaction();
 
         try {
-            // Buat nomor transaksi unik
-            $no_trans = 'TRX-' . now()->format('YmdHis') . '-' . uniqid();
+            $no_trans = 'TRX-' . now()->format('YmdHis') . '-' . Str::uuid();
 
-            // Buat data transaksi di tabel `penjualan`
             $penjualan = Penjualan::create([
                 'no_trans' => $no_trans,
                 'tgl_jual' => $request->tgl_jual,
                 'pelanggan_id' => $request->pelanggan_id
             ]);
 
+            $totalPenjualan = 0;
+
             foreach ($cartItems as $item) {
                 $obat = Obat::findOrFail($item['id']);
 
-                // Cek stok cukup atau tidak
                 if ($obat->jmlh_stok < $item['jumlah']) {
                     throw new \Exception("Stok obat {$obat->nama} tidak mencukupi.");
                 }
 
-                // Buat data di tabel `penjualan_detail`
                 PenjualanDetail::create([
                     'penjualan_id' => $penjualan->id,
                     'obat_id' => $obat->id,
@@ -69,15 +69,41 @@ class PenjualanController extends Controller
                     'total_jual' => $item['total'],
                 ]);
 
-                // Kurangi stok setelah transaksi berhasil
+                $totalPenjualan += $item['total'];
+
                 $obat->decrement('jmlh_stok', $item['jumlah']);
             }
 
-            DB::commit(); // Commit jika semua berhasil
+            // **Pencatatan Jurnal Otomatis**
+            $no_jurnal = 'JRN-' . now()->format('YmdHis') . '-' . Str::uuid();
+
+            // 🔹 **Jurnal untuk PENDAPATAN (Kredit)**
+            $coaPendapatan = Coa::where('kode_coa', '411')->first();
+            Jurnal::create([
+                'no_jurnal' => $no_jurnal,
+                'tgl_jurnal' => now(),
+                'coa_id' => $coaPendapatan->id,
+                'deskripsi' => 'Pendapatan dari Penjualan No. ' . $no_trans,
+                'debit' => 0,
+                'kredit' => $totalPenjualan
+            ]);
+
+            // 🔹 **Jurnal untuk KAS (Debit)**
+            $coaKas = coa::where('kode_coa', '111')->first();
+            Jurnal::create([
+                'no_jurnal' => $no_jurnal,
+                'tgl_jurnal' => now(),
+                'coa_id' => $coaKas->id,
+                'deskripsi' => 'Kas dari Penjualan No. ' . $no_trans,
+                'debit' => $totalPenjualan,
+                'kredit' => 0
+            ]);
+
+            DB::commit();
 
             return redirect()->route('penjualan.index')->with('success', 'Transaksi penjualan berhasil disimpan');
         } catch (\Exception $e) {
-            DB::rollBack(); // Rollback jika terjadi error
+            DB::rollBack();
             return redirect()->route('penjualan.index')->with('error', 'Gagal menyimpan transaksi: ' . $e->getMessage());
         }
     }

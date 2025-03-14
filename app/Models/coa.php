@@ -15,5 +15,10 @@ class coa extends Model
     protected $fillable = [
         'kode_coa', 'nama_akun', 'header_akun',
     ];
-    
+  
+    public function jurnal()
+{
+    return $this->hasMany(Jurnal::class, 'coa_id');
+}
+
 };
