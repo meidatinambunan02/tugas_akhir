@@ -7,24 +7,24 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Jalankan migrasi untuk membuat tabel 'coa'.
      */
     public function up(): void
     {
         Schema::create('coa', function (Blueprint $table) {
-            $table->id();
-            $table->integer('kode_coa');
-            $table->string('nama_akun');
-            $table->integer('header_akun')->nullable();
-            $table->timestamps();
+            $table->id(); // Membuat kolom 'id' sebagai primary key dengan tipe data BIGINT (auto increment)
+            $table->integer('kode_coa'); // Kolom untuk menyimpan kode akun (Chart of Account)
+            $table->string('nama_akun'); // Kolom untuk menyimpan nama akun
+            $table->integer('header_akun')->nullable(); // Kolom untuk menyimpan header akun (bisa bernilai null)
+            $table->timestamps(); // Menambahkan kolom created_at dan updated_at
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Membatalkan migrasi dengan menghapus tabel 'coa'.
      */
     public function down(): void
     {
-        Schema::dropIfExists('coa');
+        Schema::dropIfExists('coa'); // Menghapus tabel 'coa' jika tabel tersebut ada
     }
 };
