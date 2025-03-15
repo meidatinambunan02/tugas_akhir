@@ -1,5 +1,7 @@
 1. Pull Repository
 
+git fetch --all
+git checkout revisi_proyek_mei
 git pull origin revisi_proyek_mei
 
 2. Instal Dependensi dengan Composer
