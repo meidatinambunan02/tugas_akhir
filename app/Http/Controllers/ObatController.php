@@ -33,7 +33,6 @@ class ObatController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi input
         $validated = $request->validate([
             'kode_obat' => 'required|max:255',
             'nama_obat' => 'required|max:255',

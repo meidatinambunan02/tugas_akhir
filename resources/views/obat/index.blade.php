@@ -11,7 +11,7 @@ List Obat
     <!-- Tabel Obat -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Obat</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Chart of Accounts (COA)</h6>
             </br>
 
             <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#tambahModal">Tambah Data</a>
@@ -74,7 +74,7 @@ List Obat
                     @csrf
                     <div class="form-group">
                         <label for="kode_obat">Kode Obat</label>
-                        <input type="number" class="form-control" id="kode_obat" name="kode_obat" required>
+                        <input type="text" class="form-control" id="kode_obat" name="kode_obat" required>
                     </div>
                     <div class="form-group">
                         <label for="nama_obat">Nama Obat</label>

@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-        $pass = "123123123@Jo";
+        $pass = "12345678";
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
@@ -26,8 +26,6 @@ class DatabaseSeeder extends Seeder
             ObatSeeder::class,
             CoaSeeder::class,
             PelangganSeeder::class,
-            PenjualanSeeder::class,
-            PenjualanDetailSeeder::class,
         ]);
     }
 }
