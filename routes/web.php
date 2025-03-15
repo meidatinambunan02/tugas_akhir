@@ -4,6 +4,7 @@ use App\Http\Controllers\CoaController;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LaporanPenjualanController;
 use App\Http\Controllers\PelangganController;
@@ -16,9 +17,9 @@ Route::get('/', function () {
 
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/coa', [CoaController::class, 'index'])->name('coa.index');
