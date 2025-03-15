@@ -22,9 +22,10 @@ class PenjualanController extends Controller
 
         // Ambil data riwayat transaksi penjualan
         $riwayat = Penjualan::with('detailPenjualan.obat', 'pelanggan')
-            ->orderBy('created_at', 'desc')
-            ->get();
-
+        ->where('user_id', Auth::id()) // 🔥 Filter berdasarkan user yang login
+        ->orderBy('created_at', 'desc')
+        ->get();
+    
         return view('penjualan.index', compact('obat', 'pelanggan', 'riwayat'));
     }
 
@@ -79,17 +80,6 @@ class PenjualanController extends Controller
             // **Pencatatan Jurnal Otomatis**
             $no_jurnal = 'JRN-' . now()->format('YmdHis') . '-' . Str::uuid();
 
-            // 🔹 **Jurnal untuk PENDAPATAN (Kredit)**
-            $coaPendapatan = Coa::where('kode_coa', '411')->first();
-            Jurnal::create([
-                'no_jurnal' => $no_jurnal,
-                'tgl_jurnal' => now(),
-                'coa_id' => $coaPendapatan->id,
-                'deskripsi' => 'Pendapatan dari Penjualan No. ' . $no_trans,
-                'debit' => 0,
-                'kredit' => $totalPenjualan,
-                'user_id' => Auth::id(),
-            ]);
 
             // 🔹 **Jurnal untuk KAS (Debit)**
             $coaKas = coa::where('kode_coa', '111')->first();
@@ -100,6 +90,18 @@ class PenjualanController extends Controller
                 'deskripsi' => 'Kas dari Penjualan No. ' . $no_trans,
                 'debit' => $totalPenjualan,
                 'kredit' => 0,
+                'user_id' => Auth::id(),
+            ]);
+
+            // 🔹 **Jurnal untuk PENDAPATAN (Kredit)**
+            $coaPendapatan = Coa::where('kode_coa', '411')->first();
+            Jurnal::create([
+                'no_jurnal' => $no_jurnal,
+                'tgl_jurnal' => now(),
+                'coa_id' => $coaPendapatan->id,
+                'deskripsi' => 'Pendapatan dari Penjualan No. ' . $no_trans,
+                'debit' => 0,
+                'kredit' => $totalPenjualan,
                 'user_id' => Auth::id(),
             ]);
 

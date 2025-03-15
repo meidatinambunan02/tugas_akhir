@@ -52,7 +52,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Daftar Transaksi :</h6>
                 <a class="collapse-item" href="{{route('penjualan.index')}}">Penjualan</a>
-                <a class="collapse-item" href="utilities-border.html">Lainnya</a>
+                <a class="collapse-item" href="{{ route('transaksi.index') }}">Lainnya</a>
 
             </div>
         </div>
@@ -78,12 +78,12 @@
                 <a class="collapse-item" href="{{ route('laporan.penjualan') }}">Laporan Penjualan</a>
                 <a class="collapse-item" href="{{ route('laporan.laba-rugi') }}">Laporan Laba Rugi</a>
 
-                <!-- <div class="collapse-divider"></div>
-                <h6 class="collapse-header">Other Pages:</h6>
-                <a class="collapse-item" href="404.html">404 Page</a>
-                <a class="collapse-item" href="blank.html">Blank Page</a>
-            </div> -->
+                {{-- <!-- <div class="collapse-divider"></div> --}}
+                <h6 class="collapse-header">Jurnal:</h6>
+                <a class="collapse-item" href="{{ route('jurnal.index') }}">Umum</a>
+                <a class="collapse-item" href="{{ route('jurnal.buku-besar') }}">Buku Besar</a>
             </div>
+        </div>
     </li>
 
     <!-- Nav Item - Charts 

@@ -5,10 +5,13 @@ use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\JurnalController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LaporanPenjualanController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TransaksiLainController;
+use App\Models\TransaksiLain;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -60,6 +63,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/laporan/laba-rugi/export', [LaporanController::class, 'exportLabaRugi'])->name('laporan.laba-rugi.export');
     Route::get('/laporan/penjualan', [LaporanPenjualanController::class, 'index'])->name('laporan.penjualan');
     Route::get('/laporan/penjualan/export', [LaporanPenjualanController::class, 'export'])->name('laporan.penjualan.export');
+
+    Route::get('/jurnal', [JurnalController::class, 'index'])->name('jurnal.index');
+    Route::get('/jurnal/buku-besar', [JurnalController::class, 'bukuBesar'])->name('jurnal.buku-besar');
+    
+    Route::get('/transaksi/lain', [TransaksiLainController::class, 'index'])->name('transaksi.index');
+    Route::post('/transaksi/lain', [TransaksiLainController::class, 'store'])->name('transaksi-lain.store');
+
 });
 
 
