@@ -15,7 +15,8 @@ class Pelanggan extends Model
         'nama_pelanggan',
         'email',
         'telepon',
-        'alamat'
+        'alamat',
+        'user_id',
     ];
 
     public function penjualan()

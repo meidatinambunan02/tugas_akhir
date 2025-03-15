@@ -9,6 +9,7 @@ use App\Models\PenjualanDetail;
 use App\Models\Obat;
 use App\Models\Pelanggan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 
@@ -49,7 +50,8 @@ class PenjualanController extends Controller
             $penjualan = Penjualan::create([
                 'no_trans' => $no_trans,
                 'tgl_jual' => $request->tgl_jual,
-                'pelanggan_id' => $request->pelanggan_id
+                'pelanggan_id' => $request->pelanggan_id,
+                'user_id' => Auth::id(),
             ]);
 
             $totalPenjualan = 0;
@@ -85,7 +87,8 @@ class PenjualanController extends Controller
                 'coa_id' => $coaPendapatan->id,
                 'deskripsi' => 'Pendapatan dari Penjualan No. ' . $no_trans,
                 'debit' => 0,
-                'kredit' => $totalPenjualan
+                'kredit' => $totalPenjualan,
+                'user_id' => Auth::id(),
             ]);
 
             // 🔹 **Jurnal untuk KAS (Debit)**
@@ -96,7 +99,8 @@ class PenjualanController extends Controller
                 'coa_id' => $coaKas->id,
                 'deskripsi' => 'Kas dari Penjualan No. ' . $no_trans,
                 'debit' => $totalPenjualan,
-                'kredit' => 0
+                'kredit' => 0,
+                'user_id' => Auth::id(),
             ]);
 
             DB::commit();

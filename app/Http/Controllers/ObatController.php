@@ -7,6 +7,7 @@ use App\Models\coa;
 use App\Models\Jurnal;
 use App\Models\obat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ObatController extends Controller
 {
@@ -41,6 +42,7 @@ class ObatController extends Controller
             'tgl_beli' => 'required|date',
         ]);
 
+        $validated['user_id'] = Auth::id();
         // Menyimpan data obat ke database
         $obat = Obat::create($validated);
 
@@ -62,6 +64,7 @@ class ObatController extends Controller
                 'deskripsi' => 'Pembelian Obat ' . $obat->nama_obat,
                 'debit' => $total,
                 'kredit' => 0,
+                'user_id' => Auth::id(),
             ]);
 
             // ✅ Kredit → Kas (jika tunai) atau Utang Usaha (jika kredit)
@@ -72,6 +75,7 @@ class ObatController extends Controller
                 'deskripsi' => 'Pembayaran Obat ' . $obat->nama_obat,
                 'debit' => 0,
                 'kredit' => $total,
+                'user_id' => Auth::id(),
             ]);
         }
 

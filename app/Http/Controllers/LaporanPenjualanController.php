@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\LaporanPenjualanExport;
+use Illuminate\Support\Facades\Auth;
 
 class LaporanPenjualanController extends Controller
 {
@@ -16,6 +17,7 @@ class LaporanPenjualanController extends Controller
         $endDate = $request->end_date;
 
         $query = Penjualan::with('detailPenjualan.obat', 'pelanggan')
+            ->where('user_id', Auth::id())
             ->orderBy('created_at', 'desc');
 
         if ($startDate && $endDate) {
@@ -34,6 +36,7 @@ class LaporanPenjualanController extends Controller
         $endDate = $request->end_date;
 
         $query = Penjualan::with('detailPenjualan.obat', 'pelanggan')
+            ->where('user_id', Auth::id())
             ->orderBy('created_at', 'desc');
 
         if ($startDate && $endDate) {

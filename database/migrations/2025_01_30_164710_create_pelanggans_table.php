@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->string('email')->unique();
             $table->string('telepon');
             $table->text('alamat');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

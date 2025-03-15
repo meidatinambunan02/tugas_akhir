@@ -15,6 +15,7 @@ class Penjualan extends Model
         'no_trans',
         'tgl_jual',
         'pelanggan_id',
+        'user_id',
     ];
 
     /**

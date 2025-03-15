@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Jurnal;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class LaporanController extends Controller
@@ -17,19 +18,20 @@ class LaporanController extends Controller
         $start_date = $request->input('start_date');
         $end_date = $request->input('end_date');
 
-        $query = Jurnal::with('coa');
+        $query = Jurnal::with('coa')
+            ->where('user_id', Auth::id()); // ✅ Filter berdasarkan user yang login
 
         if ($start_date && $end_date) {
             $query->whereBetween('tgl_jurnal', [$start_date, $end_date]);
         }
 
         // Pendapatan = header akun 4
-        $pendapatan = $query->whereHas('coa', function ($q) {
+        $pendapatan = (clone $query)->whereHas('coa', function ($q) {
             $q->where('header_akun', 4);
         })->get();
 
         // Beban = header akun 5
-        $beban = $query->whereHas('coa', function ($q) {
+        $beban = (clone $query)->whereHas('coa', function ($q) {
             $q->where('header_akun', 5);
         })->get();
 
@@ -52,16 +54,18 @@ class LaporanController extends Controller
         $startDate = $request->start_date;
         $endDate = $request->end_date;
 
-        // Ambil pendapatan berdasarkan header akun 4
+        // Ambil pendapatan berdasarkan header akun 4 dan filter berdasarkan user
         $pendapatan = Jurnal::with('coa')
+            ->where('user_id', Auth::id()) // ✅ Filter berdasarkan user yang login
             ->whereHas('coa', function ($q) {
                 $q->where('header_akun', 4);
             })
             ->whereBetween('tgl_jurnal', [$startDate, $endDate])
             ->get();
 
-        // Ambil beban berdasarkan header akun 5
+        // Ambil beban berdasarkan header akun 5 dan filter berdasarkan user
         $beban = Jurnal::with('coa')
+            ->where('user_id', Auth::id()) // ✅ Filter berdasarkan user yang login
             ->whereHas('coa', function ($q) {
                 $q->where('header_akun', 5);
             })

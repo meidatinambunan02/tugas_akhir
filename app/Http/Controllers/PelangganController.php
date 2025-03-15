@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pelanggan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PelangganController extends Controller
 {
@@ -22,7 +23,7 @@ class PelangganController extends Controller
             'telepon' => 'required|max:15',
             'alamat' => 'required'
         ]);
-
+        $validated['user_id'] = Auth::id();
         Pelanggan::create($validated);
 
         return redirect()->route('pelanggan.index')->with('success', 'Data Pelanggan berhasil ditambahkan!');

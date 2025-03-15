@@ -18,6 +18,7 @@ class Jurnal extends Model
         'deskripsi',
         'debit',
         'kredit',
+        'user_id',
     ];
 
     public function coa()
@@ -25,3 +26,4 @@ class Jurnal extends Model
         return $this->belongsTo(Coa::class);
     }
 }
+    

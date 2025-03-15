@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('jmlh_stok');
             $table->integer('harga');
             $table->date('tgl_beli');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
