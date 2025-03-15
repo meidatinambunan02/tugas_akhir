@@ -9,6 +9,7 @@ use App\Models\Penjualan;
 use App\Models\Transaksi;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -25,6 +26,13 @@ class DashboardController extends Controller
             ->whereHas('coa', function ($q) {
                 $q->where('header_akun', 5);
             })->sum('debit');
+
+        // **Total Aset** (header akun 1)
+        $totalAset = Jurnal::where('user_id', Auth::id())
+            ->whereHas('coa', function ($q) {
+                $q->where('header_akun', 1);
+            })
+            ->sum('debit'); // ✅ Total aset dihitung dari selisih debit dan kredit
 
         // Stok Obat Hampir Habis (<10)
         $stokHampirHabis = Obat::where('user_id', Auth::id()) // ✅ Filter berdasarkan user yang login
@@ -55,6 +63,7 @@ class DashboardController extends Controller
         return view('dashboard', compact(
             'totalPenjualan',
             'totalPembelian',
+            'totalAset',
             'stokHampirHabis',
             'pelangganAktif',
             'pendapatanBersih',

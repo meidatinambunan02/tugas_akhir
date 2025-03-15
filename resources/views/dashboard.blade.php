@@ -35,6 +35,18 @@ Dashboard Apotek Milan
             </div>
         </div>
 
+        <!-- Total Asset -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                        Total Aset
+                    </div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">Rp {{ number_format($totalAset) }}</div>
+                </div>
+            </div>
+        </div>
+
         <!-- Pelanggan Aktif -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-info shadow h-100 py-2">
@@ -95,7 +107,7 @@ Dashboard Apotek Milan
         <div class="card-body">
             <ul>
                 @foreach ($stokHampirHabis as $obat)
-                    <li>{{ $obat->nama_obat }} - Sisa: {{ $obat->stok }}</li>
+                    <li>{{ $obat->nama_obat }} - Sisa: {{ $obat->jmlh_stok }}</li>
                 @endforeach
             </ul>
         </div>
