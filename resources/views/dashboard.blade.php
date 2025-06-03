@@ -85,7 +85,7 @@ Dashboard Apotek Milan
                 <thead>
                     <tr>
                         <th>Tanggal</th> <!-- ✅ Menampilkan tanggal transaksi -->
-                        <th>Pelanggan</th> <!-- ✅ Menampilkan nama pelanggan -->
+                          <!-- ✅ Menampilkan nama pelanggan --> 
                         <th>Total</th> <!-- ✅ Menampilkan total transaksi -->
                     </tr>
                 </thead>
@@ -95,7 +95,7 @@ Dashboard Apotek Milan
                     <tr>
                         <td>{{ $transaksi->tgl_jual }}</td>
                         <!-- ✅ Mengambil nama pelanggan dari relasi -->
-                        <td>{{ $transaksi->pelanggan->nama_pelanggan }}</td>
+                      {{--  <td>{{ $transaksi->pelanggan->nama_pelanggan }}</td> --}}
                         <!-- ✅ Menampilkan total transaksi (jika ada) -->
                         <td>Rp {{ number_format(optional($transaksi->detailPenjualan->first())->total_jual ?? 0) }}</td>
                     </tr>
@@ -107,8 +107,8 @@ Dashboard Apotek Milan
 
     <!-- ✅ Stok Obat Hampir Habis -->
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-danger">Stok Obat Hampir Habis</h6>
+        {{-- <div class="card-header py-3">
+         {{--   <h6 class="m-0 font-weight-bold text-danger">Stok Obat Hampir Habis</h6> --}}
         </div>
         <div class="card-body">
             <ul>
