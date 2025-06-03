@@ -49,12 +49,13 @@
         @foreach ($beban as $item)
         <div class="d-flex justify-content-between">
             <span>{{ $item->deskripsi }}</span>
-            <span>{{ number_format($item->debit, 0, ',', '.') }}</span>
+            <div class="col-5" number-align: right;>{{ number_format($item->debit, 0, ',', '.') }}</div>
         </div>
         @endforeach
+
         <div class="d-flex justify-content-between fw-bold">
-            <span>Total Beban</span>
-            <span>{{ number_format($totalBeban, 0, ',', '.') }}</span>
+           <div class="col-7">Total Beban</div>
+             <div class="col-5">{{ number_format($totalBeban, 0, ',', '.') }}</div>
         </div>
     </div>
 
