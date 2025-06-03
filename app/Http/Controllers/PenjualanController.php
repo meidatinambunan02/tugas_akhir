@@ -7,7 +7,7 @@ use App\Models\Jurnal;
 use App\Models\Penjualan;
 use App\Models\PenjualanDetail;
 use App\Models\Obat;
-use App\Models\Pelanggan;
+//use App\Models\Pelanggan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -22,16 +22,16 @@ class PenjualanController extends Controller
         $obat = Obat::all();
 
         // Mengambil semua data pelanggan dari database
-        $pelanggan = Pelanggan::all();
+        //$pelanggan = Pelanggan::all();
 
-        // Ambil data riwayat transaksi penjualan dengan relasi ke detail penjualan dan pelanggan
-        $riwayat = Penjualan::with('detailPenjualan.obat', 'pelanggan')
+        // Ambil data riwayat transaksi penjualan dengan relasi ke detail penjualan dan pelanggan 
+        $riwayat = Penjualan::with('detailPenjualan.obat')
             ->where('user_id', Auth::id()) // 🔥 Filter berdasarkan user yang sedang login
             ->orderBy('created_at', 'desc') // Urutkan berdasarkan tanggal transaksi terbaru
             ->get();
 
         // Kirim data ke view 'penjualan.index'
-        return view('penjualan.index', compact('obat', 'pelanggan', 'riwayat'));
+        return view('penjualan.index', compact('obat', 'riwayat'));
     }
 
     // Menyimpan data transaksi penjualan
@@ -40,7 +40,7 @@ class PenjualanController extends Controller
         // Validasi input dari request
         $request->validate([
             'tgl_jual' => 'required|date', // Tanggal jual harus berupa tanggal
-            'pelanggan_id' => 'required|exists:pelanggan,id', // Pelanggan harus terdaftar di tabel `pelanggan`
+           // 'pelanggan_id' => 'required|exists:pelanggan,id', // Pelanggan harus terdaftar di tabel `pelanggan`
             'cart_data' => 'required|json', // Data keranjang harus berupa JSON
         ]);
 
@@ -62,7 +62,7 @@ class PenjualanController extends Controller
             $penjualan = Penjualan::create([
                 'no_trans' => $no_trans,
                 'tgl_jual' => $request->tgl_jual,
-                'pelanggan_id' => $request->pelanggan_id,
+               // 'pelanggan_id' => $request->pelanggan_id,
                 'user_id' => Auth::id(),
             ]);
 
@@ -160,7 +160,7 @@ class PenjualanController extends Controller
             $penjualan = Penjualan::create([
                 'no_trans' => $no_trans,
                 'tgl_jual' => now(),
-                'pelanggan_id' => 1 // Anggap default pelanggan ID
+               // 'pelanggan_id' => 1 // Anggap default pelanggan ID
             ]);
 
             // Simpan detail penjualan ke tabel `penjualan_detail`

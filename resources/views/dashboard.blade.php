@@ -3,12 +3,11 @@
 
 @section('title')
 Dashboard Apotek Milan
-<!-- ✅ Menetapkan judul halaman -->
 @endsection
 
 @section('content')
 <div class="container-fluid">
-    <!-- ✅ Judul Halaman -->
+    <!--  Judul Halaman -->
     <h1 class="h3 mb-4 text-gray-800">Dashboard Apotek Milan</h1>
 
     <!-- ✅ Row Summary -->

@@ -25,74 +25,43 @@
     </form>
 
     <!-- Tabel Pendapatan -->
-    <div class="card shadow mb-4">
-        <div class="card-body">
-            <h4 class="mb-3">Pendapatan</h4>
-            <table class="table table-bordered" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>No Jurnal</th>
-                        <th>Tanggal</th>
-                        <th>Deskripsi</th>
-                        <th class="text-end">Kredit</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($pendapatan as $item)
-                        <tr>
-                            <td>{{ $item->no_jurnal }}</td>
-                            <td>{{ $item->tgl_jurnal }}</td>
-                            <td>{{ $item->deskripsi }}</td>
-                            <td class="text-end">{{ number_format($item->kredit, 0, ',', '.') }}</td>
-                        </tr>
-                    @endforeach
-                    <tr>
-                        <th colspan="3" class="text-end">Total Pendapatan</th>
-                        <th class="text-end">{{ number_format($totalPendapatan, 0, ',', '.') }}</th>
-                    </tr>
-                </tbody>
-            </table>
+<div class="text-center mb-4">
+        <h5>Apotek Milan</h5>
+        <strong>Laporan Laba Rugi</strong><br>
+    </div>
+
+    <!-- Pendapatan -->
+    <div class="mb-3">
+        <strong>Pendapatan</strong>
+        <div class="d-flex justify-content-between">
+            <span>Penjualan</span>
+            <span>{{ number_format($totalPendapatan, 0, ',', '.') }}</span>
+        </div>
+        <div class="d-flex justify-content-between fw-bold">
+            <span>Total Pendapatan</span>
+            <span>{{ number_format($totalPendapatan, 0, ',', '.') }}</span>
         </div>
     </div>
 
-    <!-- Tabel Beban -->
-    <div class="card shadow mb-4">
-        <div class="card-body">
-            <h4 class="mb-3">Beban</h4>
-            <table class="table table-bordered" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>No Jurnal</th>
-                        <th>Tanggal</th>
-                        <th>Deskripsi</th>
-                        <th class="text-end">Debit</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($beban as $item)
-                        <tr>
-                            <td>{{ $item->no_jurnal }}</td>
-                            <td>{{ $item->tgl_jurnal }}</td>
-                            <td>{{ $item->deskripsi }}</td>
-                            <td class="text-end">{{ number_format($item->debit, 0, ',', '.') }}</td>
-                        </tr>
-                    @endforeach
-                    <tr>
-                        <th colspan="3" class="text-end">Total Beban</th>
-                        <th class="text-end">{{ number_format($totalBeban, 0, ',', '.') }}</th>
-                    </tr>
-                </tbody>
-            </table>
+    <!-- Beban -->
+    <div class="mb-3">
+        <strong>Beban</strong>
+        @foreach ($beban as $item)
+        <div class="d-flex justify-content-between">
+            <span>{{ $item->deskripsi }}</span>
+            <span>{{ number_format($item->debit, 0, ',', '.') }}</span>
+        </div>
+        @endforeach
+        <div class="d-flex justify-content-between fw-bold">
+            <span>Total Beban</span>
+            <span>{{ number_format($totalBeban, 0, ',', '.') }}</span>
         </div>
     </div>
 
     <!-- Laba Bersih -->
-    <div class="card shadow">
-        <div class="card-body">
-            <h4 class="text-end">
-                Laba Bersih: <strong>{{ number_format($labaBersih, 0, ',', '.') }}</strong>
-            </h4>
-        </div>
+    <div class="d-flex justify-content-between fw-bold border-top pt-2">
+        <span>Laba Bersih</span>
+        <span>{{ number_format($labaBersih, 0, ',', '.') }}</span>
     </div>
 </div>
 @endsection

@@ -40,6 +40,7 @@ class CoaSeeder extends Seeder
         Coa::create(['kode_coa' => '411', 'nama_akun' => 'Pendapatan Jasa', 'header_akun' => 4]); // Pendapatan dari jasa
         Coa::create(['kode_coa' => '412', 'nama_akun' => 'Pendapatan Penjualan', 'header_akun' => 4]); // Pendapatan dari penjualan barang
 
+
         // 📉 Beban (Kode Header = 5)
         // Kode COA untuk kategori Beban
         // Digunakan untuk mencatat pengeluaran atau biaya yang dikeluarkan oleh perusahaan/koperasi

@@ -89,15 +89,7 @@ Daftar Transaksi Penjualan Apotek Milan
                     <label for="tgl_jual">Tanggal Jual</label>
                     <input type="date" class="form-control" name="tgl_jual" required>
                 </div>
-                <div class="form-group">
-                    <label for="pelanggan_id">Pilih Pelanggan</label>
-                    <select class="form-control" name="pelanggan_id" required>
-                        <option value="">Pilih Pelanggan</option>
-                        @foreach ($pelanggan as $pel)
-                        <option value="{{ $pel->id }}">{{ $pel->nama_pelanggan }}</option>
-                        @endforeach
-                    </select>
-                </div>
+                
                 <input type="hidden" name="cart_data" id="cartData">
                 <button type="submit" class="btn btn-primary">Checkout</button>
             </form>
@@ -117,7 +109,6 @@ Daftar Transaksi Penjualan Apotek Milan
                         <tr>
                             <th>No Transaksi</th>
                             <th>Tanggal Jual</th>
-                            <th>Pelanggan</th>
                             <th>Obat</th>
                             <th>Jumlah</th>
                             <th>Harga Satuan</th>
@@ -131,9 +122,6 @@ Daftar Transaksi Penjualan Apotek Milan
                             @if ($key === 0)
                             <td rowspan="{{ $transaksi->detailPenjualan->count() }}">{{ $transaksi->no_trans }}</td>
                             <td rowspan="{{ $transaksi->detailPenjualan->count() }}">{{ $transaksi->tgl_jual }}</td>
-                            <td rowspan="{{ $transaksi->detailPenjualan->count() }}">
-                                {{ optional($transaksi->pelanggan)->nama_pelanggan ?? '-' }}
-                            </td>
                             @endif
                             <td>{{ optional($detail->obat)->nama_obat ?? '-' }}</td>
                             <td>{{ $detail->jmlh_jual }}</td>

@@ -43,6 +43,7 @@ class ObatController extends Controller
             'nama_obat' => 'required|max:255', // Nama obat wajib diisi, maksimal 255 karakter
             'jmlh_stok' => 'required|numeric', // Jumlah stok wajib diisi dan harus berupa angka
             'harga' => 'required|numeric', // Harga wajib diisi dan harus berupa angka
+            'satuan'=> 'required|max:255', // satuan wajib diisi
             'tgl_beli' => 'required|date', // Tanggal beli wajib diisi dan harus berupa format tanggal
         ]);
 
@@ -119,6 +120,7 @@ class ObatController extends Controller
             'nama_obat' => 'required|max:255', // Nama obat wajib diisi, maksimal 255 karakter
             'jmlh_stok' => 'required|max:255', // Jumlah stok wajib diisi
             'harga' => 'required|max:255', // Harga wajib diisi
+            'satuan' => 'required|max:255',
             'tgl_beli' => 'required|date', // Tanggal beli wajib diisi dan harus berupa format tanggal
         ]);
 
@@ -131,6 +133,7 @@ class ObatController extends Controller
             'nama_obat' => $request->nama_obat,
             'jmlh_stok' => $request->jmlh_stok,
             'harga' => $request->harga,
+            'satuan' => $request->satuan,
             'tgl_beli' => $request->tgl_beli,
         ]);
 

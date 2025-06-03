@@ -16,7 +16,7 @@ class Penjualan extends Model
     protected $fillable = [
         'no_trans', // Nomor transaksi penjualan
         'tgl_jual', // Tanggal transaksi penjualan
-        'pelanggan_id', // ID pelanggan yang melakukan transaksi
+       // 'pelanggan_id', // ID pelanggan yang melakukan transaksi
         'user_id', // ID user yang mencatat transaksi
     ];
 
@@ -26,10 +26,10 @@ class Penjualan extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function pelanggan()
-    {
-        return $this->belongsTo(Pelanggan::class); // Relasi dengan tabel pelanggan
-    }
+   // public function pelanggan()
+   // {
+    //    return $this->belongsTo(Pelanggan::class); // Relasi dengan tabel pelanggan
+  //  }
 
     /**
      * Relasi ke model Obat

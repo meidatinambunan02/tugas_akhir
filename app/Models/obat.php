@@ -18,6 +18,7 @@ class Obat extends Model
         'kode_obat', // Kode unik untuk setiap obat
         'nama_obat', // Nama obat
         'harga', // Harga obat
+        'satuan', // satuan
         'jmlh_stok', // Jumlah stok obat yang tersedia
         'tgl_beli', // Tanggal pembelian obat
         'user_id', // ID user yang mencatat obat

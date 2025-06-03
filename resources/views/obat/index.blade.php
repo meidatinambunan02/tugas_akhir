@@ -25,6 +25,7 @@ List Obat
                             <th>Nama Obat</th>
                             <th>Jumlah Stok</th>
                             <th>Harga</th>
+                            <th>Satuan</th>
                             <th>Tanggal Beli</th>
                             <th>Action</th>
                         </tr>
@@ -38,6 +39,7 @@ List Obat
                             <td>{{ $obat->nama_obat }}</td>
                             <td>{{ $obat->jmlh_stok }}</td>
                             <td>{{ $obat->harga }}</td>
+                            <td>{{ $obat->satuan }}</td>
                             <td>{{ $obat->tgl_beli }}</td>
                             <td>
                                 <!-- Add action buttons here (e.g., Edit, Delete) -->
@@ -89,6 +91,10 @@ List Obat
                         <input type="number" class="form-control" id="harga" name="harga" required>
                     </div>
                     <div class="form-group">
+                        <label for="harga">Satuan</label>
+                        <input type="text" class="form-control" id="satuan" name="satuan" required>
+                    </div>
+                    <div class="form-group">
                         <label for="tgl_beli">Tanggal Beli {{ \Carbon\Carbon::today()->toDateString() }}</label>
                         <input type="date" class="form-control" id="tgl_beli" name="tgl_beli" placeholder="Masukkan Tanggal Beli" required max="{{ \Carbon\Carbon::today()->toDateString() }}">
                     </div>
@@ -138,6 +144,10 @@ List Obat
                     <div class="form-group">
                         <label for="harga">Harga Obat</label>
                         <input type="text" class="form-control" id="harga" name="harga" value="{{ $obat->harga }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="satuan">Satuan</label>
+                        <input type="text" class="form-control" id="satuan" name="satuan" value="{{ $obat->satuan }}" required>
                     </div>
                     <div class="form-group">
                         <label for="tgl_beli">Tanggal Beli</label>
