@@ -28,8 +28,8 @@ class Pelanggan extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function penjualan()
-    {
-        return $this->hasMany(Penjualan::class); // Relasi dengan tabel penjualan
-    }
+   // public function penjualan()
+   // {
+     //   return $this->hasMany(Penjualan::class); // Relasi dengan tabel penjualan
+    //}
 }

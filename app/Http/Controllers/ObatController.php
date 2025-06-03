@@ -41,6 +41,7 @@ class ObatController extends Controller
         $validated = $request->validate([
             'kode_obat' => 'required|max:255', // Kode obat wajib diisi, maksimal 255 karakter
             'nama_obat' => 'required|max:255', // Nama obat wajib diisi, maksimal 255 karakter
+            'jenis_obat' => 'required|max:255', // Jenis obat wajib diisi, maksimal 255 karakter
             'jmlh_stok' => 'required|numeric', // Jumlah stok wajib diisi dan harus berupa angka
             'harga' => 'required|numeric', // Harga wajib diisi dan harus berupa angka
             'satuan'=> 'required|max:255', // satuan wajib diisi
@@ -118,6 +119,7 @@ class ObatController extends Controller
         $request->validate([
             'kode_obat' => 'required|max:255', // Kode obat wajib diisi, maksimal 255 karakter
             'nama_obat' => 'required|max:255', // Nama obat wajib diisi, maksimal 255 karakter
+            'jenis_obat' => 'required|max:255',
             'jmlh_stok' => 'required|max:255', // Jumlah stok wajib diisi
             'harga' => 'required|max:255', // Harga wajib diisi
             'satuan' => 'required|max:255',
@@ -131,6 +133,7 @@ class ObatController extends Controller
         $obat->update([
             'kode_obat' => $request->kode_obat,
             'nama_obat' => $request->nama_obat,
+            'jenis_obat' => $request->jenis_obat,
             'jmlh_stok' => $request->jmlh_stok,
             'harga' => $request->harga,
             'satuan' => $request->satuan,

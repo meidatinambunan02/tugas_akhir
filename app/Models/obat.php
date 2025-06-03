@@ -17,6 +17,7 @@ class Obat extends Model
     protected $fillable = [
         'kode_obat', // Kode unik untuk setiap obat
         'nama_obat', // Nama obat
+        'jenis_obat',// Jenis Obat 
         'harga', // Harga obat
         'satuan', // satuan
         'jmlh_stok', // Jumlah stok obat yang tersedia

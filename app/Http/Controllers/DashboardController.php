@@ -50,13 +50,15 @@ class DashboardController extends Controller
 
         // ✅ Jumlah Pelanggan Aktif (pernah transaksi dalam 30 hari terakhir)
         // Menghitung jumlah pelanggan yang pernah melakukan transaksi dalam 30 hari terakhir
-        $pelangganAktif = Pelanggan::whereHas('penjualan', function ($q) {
-            $q->where('user_id', Auth::id()) // Filter berdasarkan user yang sedang login
-                ->where('tgl_jual', '>=', Carbon::now()->subDays(30)) // Transaksi dalam 30 hari terakhir
-                ->whereHas('detailPenjualan', function ($q) {
-                    $q->whereNotNull('total_jual'); // Pastikan transaksi memiliki total jual yang valid
-                });
-        })->count(); // Menghitung jumlah pelanggan yang memenuhi kriteria
+        $pelangganAktif = Pelanggan::count(); // Total semua pelanggan, tanpa melihat aktivitas
+
+    //    $pelangganAktif = Pelanggan::whereHas('penjualan', function ($q) {
+            // $q->where('user_id', Auth::id()) // Filter berdasarkan user yang sedang login
+             //   ->where('tgl_jual', '>=', Carbon::now()->subDays(30)) // Transaksi dalam 30 hari terakhir
+              //  ->whereHas('detailPenjualan', function ($q) {
+                //    $q->whereNotNull('total_jual'); // Pastikan transaksi memiliki total jual yang valid
+             //   });
+      //  })->count(); // Menghitung jumlah pelanggan yang memenuhi kriteria
 
         // ✅ Pendapatan Bersih
         // Menghitung pendapatan bersih dari total penjualan dikurangi total pembelian
